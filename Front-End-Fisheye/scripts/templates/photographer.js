@@ -1,11 +1,14 @@
 
 function photographerTemplate(data) {
   
-    const { name, portrait, tagline, city, price } = data;
+    const { name, portrait, tagline, city, price,id } = data;
     const picture = `assets/photographers/${portrait}`;
     function getUserCardDOM() { 
         const article = document.createElement( 'article' );
         const img = document.createElement( 'img' );
+        img.addEventListener('click', ()=>{
+            document.location.href = 'http://127.0.0.1:5501/Front-End-Fisheye/photographer.html?'+id;
+        })
         img.setAttribute("src", picture)
         const h2 = document.createElement( 'h2' );
         h2.textContent = name;
@@ -23,5 +26,5 @@ function photographerTemplate(data) {
         return (article);
     }
     
-    return { name, picture, tagline, city, price, getUserCardDOM }
+    return { name, picture, tagline, city, price,id, getUserCardDOM }
 }
