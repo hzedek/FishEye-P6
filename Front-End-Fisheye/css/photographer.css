@@ -6,13 +6,37 @@
     background-color: #FAFAFA;
     height: 300px;
     margin: 0 100px;
+    display: flex;
+    flex-direction:row;
+    justify-content: space-around;
+    align-items: center;
 }
+.name{
+    color: #D3573C;
+    font-size: 3em;
+    line-height:3%;
+}
+.city{
+    color: #901C1C;
+    font-size: 1.3em;
 
-.img {
-    width : 150px;
-    height : auto;
+}
+.tagline{
+    color: #525252;
+}
+/*.imgContainer{
+    width: 180px;
+    height: 180px;
+    overflow: hidden;
     border-radius: 50%;
-    object-fit: fill;
+}*/
+.img {
+    width :200px;
+    height :200px ;
+    object-fit:cover;
+    border-radius: 50%;
+    
+   /* object-position: -80px -100px;*/
 }
 
 .contact_button {
@@ -27,7 +51,23 @@
     border-radius: 5px;
     cursor: pointer;
 }
-
+.trier-grid{
+    display: flex;
+    flex-direction:row;
+    align-items: center;
+    
+}
+.trier{
+    font-weight: bold;
+    margin: 20px 0px 0px 100px;
+}
+ul{
+    display: flex;
+    flex-direction:column;
+}
+li{
+    display: block;
+}
 .modal {
     border-radius: 5px;
     background-color: #DB8876;
