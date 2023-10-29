@@ -1,23 +1,31 @@
 //Mettre le code JavaScript lié à la page photographer.html
-async function getPhotographer(event) {
-    const id = event.target.dataset.id;
-    fetch(`http://localhost:5501/photographer.html/${id}/`);
-    console.log(id);
-    return ({
+async function getPhotographer() {
+    //Je récupere L'id de l'URL
+    let parsedUrl = window.location.search;
+    //j'enlève le "?" pour récuperer seulement l'ID
+    const _id = parsedUrl.slice(1);
+    const reponse = await fetch("./data/photographers.json");
+    const promise = await reponse.json();
+    const photographers = promise.photographers
+    //récupération des données du photographe
+    const photographer = photographers.find((user) => user.id === parseInt(_id));
+    return ({photographer})
+}
+
+async function displayData(photographer) {
+    const photographerheader = document.querySelector("photograph-header");
+   
+        const photographerModel = photographerTemplate(photographer);
+        const photographerPageDisplay = photographerModel.photographerPageDisplay();
+        photographerheader.appendChild(photographerPageDisplay);
         
-        photographers: [photographers.photographers]}                                                                                                                             )
-}
+    };
 
-async function displayData(photographers) {
-    const photographerSection = document.querySelector(".photographer_section");
-
-}
 
 async function init() {
-    // Récupère les datas des photographes
-    const { photographers } = await getPhotographer();
-    displayData(photographers);
+    // display le photographe
+    const { photographer} = await getPhotographer();
+    displayData(photographer);
 }
-
 
 init();
