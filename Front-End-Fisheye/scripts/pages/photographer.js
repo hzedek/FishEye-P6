@@ -6,19 +6,25 @@ async function getPhotographer() {
     const _id = parsedUrl.slice(1);
     const reponse = await fetch("./data/photographers.json");
     const promise = await reponse.json();
-    const photographers = promise.photographers
+    const photographers = promise.photographers;
+    const medias = promise.media;
+    const newMedia = [];
     //récupération des données du photographe
     const photographer = photographers.find((user) => user.id === parseInt(_id));
+    console.log(photographer);
+    medias.forEach(media => {
+        let mediaphotographer = media.photographerId === parseInt(_id);
+        if (mediaphotographer) {
+            newMedia.push(media)
+        }
+    });
+    console.log(newMedia);
     return ({photographer})
 }
 
 async function displayData(photographer) {
-    const photographerheader = document.querySelector("photograph-header");
-   
-        const photographerModel = photographerTemplate(photographer);
-        const photographerPageDisplay = photographerModel.photographerPageDisplay();
-        photographerheader.appendChild(photographerPageDisplay);
-        
+    const photographerModel = photographerTemplate(photographer);
+    photographerModel.photographerPageDisplay();
     };
 
 

@@ -1,6 +1,6 @@
 
 function photographerTemplate(data) {
-    const { name, portrait, tagline, city,country, price,id } = data;
+    const { name, portrait, tagline, city,country, price,id} = data;
     const picture = `assets/photographers/${portrait}`;
     function getUserCardDOM() { 
         const article = document.createElement( 'article' );
@@ -17,7 +17,7 @@ function photographerTemplate(data) {
         const p_tagline = document.createElement( 'p' );
         p_tagline.textContent = tagline;
         const p_city = document.createElement( 'p' );
-        p_city.textContent = city+" "+country;
+        p_city.textContent = city+", "+country;
         p_city.classList.add("city")
         const p_price = document.createElement( 'p' );
         p_price.textContent = price+"/jour";
@@ -29,7 +29,22 @@ function photographerTemplate(data) {
         article.appendChild(p_price);
         return (article);
     }
+    
     function photographerPageDisplay() {
+        const nameId = document.getElementById("name");
+        nameId.textContent = name;
+        const cityId = document.getElementById("city");
+        cityId.textContent = city+", "+country;
+        const taglineId = document.getElementById("tagline");
+        taglineId.textContent = tagline;
+        img.setAttribute("src", picture);
+
+
+        /*const article = document.createElement( 'article' );
+        for (let i = 0; i < media.length; i++) {
+            const image = media[i];
+            const imagePhotographer = `assets/images/${portrait}`;
+        }*/
         
     }
     
