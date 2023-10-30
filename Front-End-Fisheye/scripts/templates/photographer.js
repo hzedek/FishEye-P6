@@ -1,5 +1,6 @@
 
 function photographerTemplate(data) {
+    console.log(data.newMedia);
     const { name, portrait, tagline, city,country, price,id} = data;
     const picture = `assets/photographers/${portrait}`;
     function getUserCardDOM() { 

@@ -12,26 +12,33 @@ async function getPhotographer() {
     //récupération des données du photographe
     const photographer = photographers.find((user) => user.id === parseInt(_id));
     console.log(photographer);
+
     medias.forEach(media => {
         let mediaphotographer = media.photographerId === parseInt(_id);
         if (mediaphotographer) {
             newMedia.push(media)
         }
     });
-    console.log(newMedia);
-    return ({photographer})
+    function createElement(name,id,city,country,tagline,price,portrait,newMedia) {
+        return{
+            name,id,city,country,tagline,price,portrait,
+            newMedia
+        }
+    }
+    const newPhotographer = createElement(photographer.name,photographer.id,photographer.city,photographer.country,photographer.tagline,photographer.price,photographer.portrait,newMedia)
+    return ({newPhotographer})
 }
 
-async function displayData(photographer) {
-    const photographerModel = photographerTemplate(photographer);
+async function displayData(newPhotographer) {
+    const photographerModel = photographerTemplate(newPhotographer);
     photographerModel.photographerPageDisplay();
     };
 
 
 async function init() {
     // display le photographe
-    const { photographer} = await getPhotographer();
-    displayData(photographer);
+    const { newPhotographer} = await getPhotographer();
+    displayData(newPhotographer);
 }
 
 init();
