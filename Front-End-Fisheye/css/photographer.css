@@ -1,9 +1,14 @@
 #contact_modal {
     display: none;
+    z-index: 2;
+    position: fixed;
+    top: 2%;
+    right: 2%;
+    left: 2%;
 }
 
 .photograph-header {
-    background-color: #FAFAFA;
+    background-color:#FAFAFA;
     height: 300px;
     margin: 0 100px;
     display: flex;
@@ -38,7 +43,6 @@
     
    /* object-position: -80px -100px;*/
 }
-
 .contact_button {
     font-size: 20px;
     font-weight: bold;
@@ -51,11 +55,16 @@
     border-radius: 5px;
     cursor: pointer;
 }
+.contact_button:hover{
+    background-color: #D3573C;
+    color: black;
+}
+
+/*trier par*/
+
 .trier-grid{
     display: flex;
-    flex-direction:row;
-    align-items: center;
-    
+    align-items: center;    
 }
 .trier{
     font-weight: bold;
@@ -68,6 +77,35 @@ ul{
 li{
     display: block;
 }
+/*Images du photographe*/
+#article{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0px 100px;
+    justify-content: space-between;
+}
+
+.image{
+    height: 350px;
+    width: 350px;
+    margin-top: 50px;
+}
+.title-likes{
+    display: flex;
+    justify-content: space-between;
+}
+/*Compteur de like et prix*/
+#priceBanner{
+    background-color: #D3573C;
+    width: 300px;
+    display: flex;
+    position: fixed;
+    right: 40px;
+    bottom: 0;
+    justify-content: space-around;
+    border-radius: 3% 3% 0% 0%;
+}
+/* MODAL */
 .modal {
     border-radius: 5px;
     background-color: #DB8876;
@@ -78,6 +116,8 @@ li{
     justify-content: space-between;
     padding: 35px;
     margin: auto;
+    overflow: hidden;
+
 }
 
 .modal header {
@@ -93,8 +133,13 @@ li{
     font-size: 64px;
     font-weight: normal;
     text-align: center;
+    margin-bottom: 26px;
 }
-
+textarea{
+    border-radius: 5px;
+    border: none;
+    
+}
 form {
     display: flex;
     width: 100%;
@@ -105,14 +150,15 @@ form {
 form label {
     color: #312E2E;
     font-size: 36px;
+    margin-bottom: 0px;
+    
 }
 
 form div {
     display: flex;
     flex-direction: column;
     width: 100%;
-    align-items: self-start;
-    margin-bottom: 26px;
+    margin-bottom: 6px;
 }
 
 form input {
@@ -121,3 +167,14 @@ form input {
     border: none;
     border-radius: 5px;
 }
+.bground {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: rgba(26, 39, 156, 0.4);
+  }

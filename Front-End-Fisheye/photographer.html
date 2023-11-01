@@ -31,10 +31,9 @@
         <li>Titre</li>
       </ul>
     </div>
-    <article>
-
+    <article id="article">
     </article>
-    </main>
+    <div class="bground"></div>
     <div id="contact_modal">
 			<div class="modal">
 				<header>
@@ -42,14 +41,56 @@
           <img src="assets/icons/close.svg" onclick="closeModal()" />
         </header>
 				<form>
-					<div>
-						<label>Prénom</label>
-						<input />
-					</div>
+					<div
+                class="formData">
+                <label for="first">Prénom</label><br>
+                <input
+                 
+                  type="text"
+                  id="first"
+                  name="first"
+                  minlength="2"
+                  required
+                />
+              </div>
+              <div
+                class="formData">
+                <label for="last">Nom</label><br>
+                <input
+                  
+                  type="text"
+                  id="last"
+                  name="last"
+                  minlength="2"
+                  required
+                />
+              </div>
+              <div
+                class="formData">
+                <label for="email">E-mail</label><br>
+                <input
+                  
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                />
+                <div
+                class="formData">
+                <label for="Votre message">Votre message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="15" cols="73">
+                </textarea>
+              </div>
           <button class="contact_button">Envoyer</button>
 				</form>
+        </div>
 			</div>
 		</div>
+    <div id="priceBanner"></div>
+    </main>
     <script src="./scripts/templates/photographer.js"></script>
     <script src="./scripts/pages/photographer.js"></script>
     <script src="./scripts/utils/contactForm.js"></script>

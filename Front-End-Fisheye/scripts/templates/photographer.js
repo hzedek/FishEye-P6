@@ -1,6 +1,5 @@
 
 function photographerTemplate(data) {
-    console.log(data.newMedia);
     const { name, portrait, tagline, city,country, price,id} = data;
     const picture = `assets/photographers/${portrait}`;
     function getUserCardDOM() { 
@@ -40,12 +39,44 @@ function photographerTemplate(data) {
         taglineId.textContent = tagline;
         img.setAttribute("src", picture);
 
-
-        /*const article = document.createElement( 'article' );
+        const media = data.newMedia;
+        let sumlikes = 0
         for (let i = 0; i < media.length; i++) {
-            const image = media[i];
-            const imagePhotographer = `assets/images/${portrait}`;
-        }*/
+            const imageObject = media[i];
+            const article = document.getElementById('article');
+            if (imageObject.image) {
+                const imageRoute = `assets/images/${imageObject.image}`;
+                const imageDisplay = `<div class="imageCard">
+                <img class="image" src="${imageRoute}" alt="">
+                <div class="title-likes">
+                    <p class="city">${imageObject.title}</p>
+                    <p class="city">${imageObject.likes}</p>
+                    </div>
+              </div>`
+              article.innerHTML += imageDisplay;
+            } if(imageObject.video) {
+                const imageRoute = `assets/images/${imageObject.video}`;
+                const imageDisplay = 
+                `<div class="imageCard">
+                <video class="image" controls src="${imageRoute}" type="mp4"></video>
+                <div class="title-likes">
+                    <p class="city">${imageObject.title}</p>
+                    <p class="city">${imageObject.likes}</p>
+                </div>
+              </div>`
+                article.innerHTML += imageDisplay;
+            }
+
+            //Somme des Likes et affiches de celui-ci dans la bannière
+            sumlikes += parseInt(media[i].likes) ;
+            const priceBanner = document.getElementById("priceBanner");
+        const priceBannerDisplay = 
+        `<div id="priceBanner">
+            <p>${sumlikes} L</p>
+            <p>${data.price}€ / jour</p>
+        </div>`;
+        priceBanner.innerHTML += priceBannerDisplay;
+        }
         
     }
     
