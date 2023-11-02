@@ -27,6 +27,7 @@ function photographerTemplate(data) {
         article.appendChild(p_city);
         article.appendChild(p_tagline);
         article.appendChild(p_price);
+        
         return (article);
     }
     
@@ -77,7 +78,9 @@ function photographerTemplate(data) {
         </div>`;
         priceBanner.innerHTML += priceBannerDisplay;
         }
+        /*Modal*/
         
+        document.getElementById('modal-name').innerText += name 
     }
     
     return { name, picture, tagline, city,country, price,id, getUserCardDOM,photographerPageDisplay }

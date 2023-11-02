@@ -19,6 +19,7 @@ async function getPhotographer() {
             newMedia.push(media)
         }
     });
+    //Creation de l'objet contenant les photos du photographe
     function createElement(name,id,city,country,tagline,price,portrait,newMedia) {
         return{
             name,id,city,country,tagline,price,portrait,

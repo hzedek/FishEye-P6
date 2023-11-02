@@ -37,15 +37,15 @@
     <div id="contact_modal">
 			<div class="modal">
 				<header>
-          <h2>Contactez-moi</h2>
+          <h2 id="modalname">Contactez-moi</h2>
           <img src="assets/icons/close.svg" onclick="closeModal()" />
         </header>
+          <h2 id="modal-name"></h2>
 				<form>
-					<div
-                class="formData">
-                <label for="first">Prénom</label><br>
-                <input
-                 
+					<div>
+                <label for="first">Prénom</label>
+                <input novalidate
+                  class="getValue"
                   type="text"
                   id="first"
                   name="first"
@@ -53,11 +53,10 @@
                   required
                 />
               </div>
-              <div
-                class="formData">
-                <label for="last">Nom</label><br>
-                <input
-                  
+              <div>
+                <label for="last">Nom</label>
+                <input novalidate
+                  class="getValue"
                   type="text"
                   id="last"
                   name="last"
@@ -65,26 +64,25 @@
                   required
                 />
               </div>
-              <div
-                class="formData">
-                <label for="email">E-mail</label><br>
-                <input
-                  
+              <div>
+                <label for="email">E-mail</label>
+                <input novalidate
+                  class="getValue"
                   type="email"
                   id="email"
                   name="email"
                   required
                 />
-                <div
-                class="formData">
+                <div>
                 <label for="Votre message">Votre message</label>
-                <textarea
+                <textarea novalidate
+                class="getValue"
                   id="message"
                   name="message"
-                  rows="15" cols="73">
+                  rows="7" cols="73">
                 </textarea>
               </div>
-          <button class="contact_button">Envoyer</button>
+          <button id="contact_button" class="contact_button" type="" >Envoyer</button>
 				</form>
         </div>
 			</div>
