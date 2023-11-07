@@ -94,6 +94,26 @@ li{
     display: flex;
     justify-content: space-between;
 }
+/*lightbox*/
+.lightbox-Bg{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: white;
+}
+.lightbox{
+    display: none;
+    z-index: 2;
+    position: fixed;
+    top: 2%;
+    right: 2%;
+    left: 2%;
+}
 /*Compteur de like et prix*/
 #priceBanner{
     background-color: #D3573C;
@@ -107,7 +127,7 @@ li{
 }
 /* MODAL */
 #modal-name{
-    font-size: 50px;
+    font-size: 40px;
     font-weight: normal;
     margin:0%;
     width: 100%;
@@ -136,7 +156,7 @@ li{
 }
 
 .modal header h2 {
-    font-size: 50px;
+    font-size: 40px;
     font-weight: normal;
     text-align: center;
     line-height: 0%;
@@ -171,7 +191,7 @@ form input {
     height: 68px;
     border: none;
     border-radius: 5px;
-    font-size: 20px;
+    font-size: 16px;
     
 }
 .bground {

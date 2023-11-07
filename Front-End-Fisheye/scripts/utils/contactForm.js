@@ -1,5 +1,6 @@
 const modal = document.getElementById("contact_modal");
 const modalbg = document.querySelector(".bground");
+const p = document.createElement("p");
 
 function displayModal() {
 	modal.style.display = "block";
@@ -12,6 +13,7 @@ function closeModal() {
 }
 const modalbtn = document.getElementById("contact_button");
 const getValue = document.querySelectorAll(".getValue");
+const form = document.querySelector("form");
 
 
 modalbtn.addEventListener("click", (event) => {
@@ -20,8 +22,8 @@ modalbtn.addEventListener("click", (event) => {
         const element = getValue[x];
         let values = element.value.trim();
         if (values.length <2) {
-            console.log(element.value,"not good");
-            console.log(element.name);
+            p.textContent += "veuillez remplir le champ "+element.name;
+            form.appendChild(p);
         }
         }
     

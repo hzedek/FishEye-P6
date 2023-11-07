@@ -39,7 +39,6 @@ function photographerTemplate(data) {
         const taglineId = document.getElementById("tagline");
         taglineId.textContent = tagline;
         img.setAttribute("src", picture);
-
         const media = data.newMedia;
         let sumlikes = 0
         for (let i = 0; i < media.length; i++) {
@@ -55,11 +54,12 @@ function photographerTemplate(data) {
                     </div>
               </div>`
               article.innerHTML += imageDisplay;
+              
             } if(imageObject.video) {
                 const imageRoute = `assets/images/${imageObject.video}`;
                 const imageDisplay = 
                 `<div class="imageCard">
-                <video class="image" controls src="${imageRoute}" type="mp4"></video>
+                <video class="image"  src="${imageRoute}" type="mp4"></video>
                 <div class="title-likes">
                     <p class="city">${imageObject.title}</p>
                     <p class="city">${imageObject.likes}</p>
@@ -67,6 +67,17 @@ function photographerTemplate(data) {
               </div>`
                 article.innerHTML += imageDisplay;
             }
+           // lightbox
+            let imgBtns = document.querySelectorAll(".image");
+            function lightbox() {
+               let lightbox_BG = document.querySelector(".lightbox-Bg");
+               let lightbox = document.querySelector(".lightbox");
+               lightbox_BG.style.display = "block";
+               lightbox.style.display = "block";
+            }
+            imgBtns.forEach(imgBtn => {
+                imgBtn.addEventListener('click', lightbox)
+            })
 
             //Somme des Likes et affiches de celui-ci dans la bannière
             sumlikes += parseInt(media[i].likes) ;

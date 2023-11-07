@@ -11,7 +11,6 @@ async function getPhotographer() {
     const newMedia = [];
     //récupération des données du photographe
     const photographer = photographers.find((user) => user.id === parseInt(_id));
-    console.log(photographer);
 
     medias.forEach(media => {
         let mediaphotographer = media.photographerId === parseInt(_id);
