@@ -1,5 +1,6 @@
 const modal = document.getElementById("contact_modal");
 const modalbg = document.querySelector(".bground");
+
 const p = document.createElement("p");
 
 function displayModal() {

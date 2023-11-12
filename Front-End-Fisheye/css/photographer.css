@@ -106,13 +106,57 @@ li{
     overflow: auto;
     background-color: white;
 }
-.lightbox{
+#lightbox{
     display: none;
     z-index: 2;
+    width: 80%;
+    height: 95%;
+    margin: 0 auto;
     position: fixed;
     top: 2%;
     right: 2%;
     left: 2%;
+}
+#carousel{
+    margin: 1% auto;
+    width: 80%;
+    height: 93%;
+}
+.lightboxImg{
+    width: 100%;
+    height: 100%;
+    
+}
+#close{
+    position:absolute;
+    cursor: pointer;
+    top: 50px;
+    right: 35px;
+}
+.chevron{
+    position: absolute;
+    width: 70px;
+    cursor: pointer;
+    top: 40%;
+}
+#left{
+    left: 2%;
+    opacity: 0.4;
+    transform: rotate(180deg);
+}
+#right{
+    right: 2%;
+    opacity: 0.4;
+}
+#left:hover{
+    transform: rotate(180deg) scale(1.1);
+    opacity: 1;
+    transition: all 0.3 ease;
+}
+#right:hover{
+    transform: scale(1.1);
+    opacity: 1;
+    transition: all 0.3 ease;
 }
 /*Compteur de like et prix*/
 #priceBanner{
@@ -126,6 +170,17 @@ li{
     border-radius: 3% 3% 0% 0%;
 }
 /* MODAL */
+.bground {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: rgba(51, 51, 51, 0.503);
+  }
 #modal-name{
     font-size: 40px;
     font-weight: normal;
@@ -194,14 +249,3 @@ form input {
     font-size: 16px;
     
 }
-.bground {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    overflow: auto;
-    background-color: rgba(51, 51, 51, 0.503);
-  }

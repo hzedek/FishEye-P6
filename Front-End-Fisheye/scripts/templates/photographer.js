@@ -41,13 +41,14 @@ function photographerTemplate(data) {
         img.setAttribute("src", picture);
         const media = data.newMedia;
         let sumlikes = 0
+
         for (let i = 0; i < media.length; i++) {
             const imageObject = media[i];
             const article = document.getElementById('article');
             if (imageObject.image) {
                 const imageRoute = `assets/images/${imageObject.image}`;
                 const imageDisplay = `<div class="imageCard">
-                <img class="image" src="${imageRoute}" alt="">
+                <img class="image" id="${media[i].id}" src="${imageRoute}" alt="">
                 <div class="title-likes">
                     <p class="city">${imageObject.title}</p>
                     <p class="city">${imageObject.likes}</p>
@@ -69,14 +70,31 @@ function photographerTemplate(data) {
             }
            // lightbox
             let imgBtns = document.querySelectorAll(".image");
-            function lightbox() {
-               let lightbox_BG = document.querySelector(".lightbox-Bg");
-               let lightbox = document.querySelector(".lightbox");
-               lightbox_BG.style.display = "block";
-               lightbox.style.display = "block";
-            }
+
+            document.getElementById("close").addEventListener('click', function(){
+            const lightbox_BG = document.querySelector(".lightbox-Bg");
+            const lightbox = document.getElementById("lightbox");
+            const closingLightbox = document.querySelector(".lightboxImg");
+            lightbox_BG.style.display = "none";
+            lightbox.style.display = "none";
+            closingLightbox.remove();
+            })
+            
             imgBtns.forEach(imgBtn => {
-                imgBtn.addEventListener('click', lightbox)
+                imgBtn.addEventListener('click', function lightbox() {
+                    let lightbox_BG = document.querySelector(".lightbox-Bg");
+                    let lightbox = document.getElementById("lightbox");
+                    lightbox_BG.style.display = "block";
+                    lightbox.style.display = "block";
+                    
+                    imgClicked = imgBtn.attributes.src.value   
+                    let carousel = document.getElementById("carousel");
+                    let imgCarousel = document.createElement("img");
+                    imgCarousel.className="lightboxImg"
+                    imgCarousel.setAttribute("src",imgClicked)
+                    imgCarousel.setAttribute("id",imgBtn.id)
+                    carousel.appendChild(imgCarousel)
+                })
             })
 
             //Somme des Likes et affiches de celui-ci dans la bannière
@@ -89,8 +107,35 @@ function photographerTemplate(data) {
         </div>`;
         priceBanner.innerHTML += priceBannerDisplay;
         }
+        function previousImg() {
+            let currentImg = document.querySelector(".lightboxImg");
+            let index = media.findIndex(  obj=> obj.id === parseInt(currentImg.id))
+            if (index>0) {
+                index -= 1
+                console.log(index);
+                const imgCarousel = document.querySelector(".lightboxImg");
+                const imageRoute = `assets/images/${media[index].image}`;
+                imgCarousel.setAttribute("id",media[index].id)
+                imgCarousel.setAttribute("src",imageRoute)                    
+            }
+        }
+        document.getElementById("left").addEventListener("click",previousImg)
+        function nextImg() {
+            let currentImg = document.querySelector(".lightboxImg");
+            let index = media.findIndex(  obj=> obj.id === parseInt(currentImg.id))
+            if (index<media.length) {
+                if(media.video){
+                    const imageRoute = `assets/images/${media[index].video}`;
+                }
+                index += 1
+                const imgCarousel = document.querySelector(".lightboxImg");
+                const imageRoute = `assets/images/${media[index].image}`;
+                imgCarousel.setAttribute("id",media[index].id)
+                imgCarousel.setAttribute("src",imageRoute)                    
+            }
+        }
+        document.getElementById("right").addEventListener("click",nextImg)
         /*Modal*/
-        
         document.getElementById('modal-name').innerText += name 
     }
     
