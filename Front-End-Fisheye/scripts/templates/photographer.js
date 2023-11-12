@@ -60,7 +60,7 @@ function photographerTemplate(data) {
                 const imageRoute = `assets/images/${imageObject.video}`;
                 const imageDisplay = 
                 `<div class="imageCard">
-                <video class="image"  src="${imageRoute}" type="mp4"></video>
+                <video class="image" id="${media[i].id}"  src="${imageRoute}" type="mp4"></video>
                 <div class="title-likes">
                     <p class="city">${imageObject.title}</p>
                     <p class="city">${imageObject.likes}</p>
@@ -70,15 +70,6 @@ function photographerTemplate(data) {
             }
            // lightbox
             let imgBtns = document.querySelectorAll(".image");
-
-            document.getElementById("close").addEventListener('click', function(){
-            const lightbox_BG = document.querySelector(".lightbox-Bg");
-            const lightbox = document.getElementById("lightbox");
-            const closingLightbox = document.querySelector(".lightboxImg");
-            lightbox_BG.style.display = "none";
-            lightbox.style.display = "none";
-            closingLightbox.remove();
-            })
             
             imgBtns.forEach(imgBtn => {
                 imgBtn.addEventListener('click', function lightbox() {
@@ -86,14 +77,24 @@ function photographerTemplate(data) {
                     let lightbox = document.getElementById("lightbox");
                     lightbox_BG.style.display = "block";
                     lightbox.style.display = "block";
-                    
-                    imgClicked = imgBtn.attributes.src.value   
+                    if (imgBtn.attributes.type) {
+                        let imgCarousel = document.createElement("video");
+                        imgClicked = imgBtn.attributes.src.value
                     let carousel = document.getElementById("carousel");
-                    let imgCarousel = document.createElement("img");
                     imgCarousel.className="lightboxImg"
                     imgCarousel.setAttribute("src",imgClicked)
                     imgCarousel.setAttribute("id",imgBtn.id)
                     carousel.appendChild(imgCarousel)
+                    }
+                    else{
+                        let imgCarousel = document.createElement("img");
+                        imgClicked = imgBtn.attributes.src.value
+                    let carousel = document.getElementById("carousel");
+                    imgCarousel.className="lightboxImg"
+                    imgCarousel.setAttribute("src",imgClicked)
+                    imgCarousel.setAttribute("id",imgBtn.id)
+                    carousel.appendChild(imgCarousel)
+                    }
                 })
             })
 
@@ -107,32 +108,68 @@ function photographerTemplate(data) {
         </div>`;
         priceBanner.innerHTML += priceBannerDisplay;
         }
+        document.getElementById("close").addEventListener('click', function(){
+            const lightbox_BG = document.querySelector(".lightbox-Bg");
+            const lightbox = document.getElementById("lightbox");
+            const closingLightbox = document.querySelector(".lightboxImg");
+            lightbox_BG.style.display = "none";
+            lightbox.style.display = "none";
+            console.log(closingLightbox);
+            closingLightbox.remove();
+            })
         function previousImg() {
             let currentImg = document.querySelector(".lightboxImg");
             let index = media.findIndex(  obj=> obj.id === parseInt(currentImg.id))
             if (index>0) {
                 index -= 1
-                console.log(index);
-                const imgCarousel = document.querySelector(".lightboxImg");
-                const imageRoute = `assets/images/${media[index].image}`;
-                imgCarousel.setAttribute("id",media[index].id)
-                imgCarousel.setAttribute("src",imageRoute)                    
-            }
+                if(media[index].video){
+                    const imgCarousel = document.querySelector(".lightboxImg");
+                    imgCarousel.remove();
+                    let imgCarousel2 = document.createElement("video");
+                    const imageRoute = `assets/images/${media[index].video}`;
+                    imgCarousel2.setAttribute("id",media[index].id)
+                    imgCarousel2.setAttribute("src",imageRoute)
+                    imgCarousel2.className="lightboxImg"
+                    carousel.appendChild(imgCarousel2)
+                }
+                else{
+                    const imgCarousel = document.querySelector(".lightboxImg");
+                    imgCarousel.remove();
+                    let imgCarousel2 = document.createElement("img");
+                    const imageRoute = `assets/images/${media[index].image}`;
+                    imgCarousel2.setAttribute("id",media[index].id)
+                    imgCarousel2.setAttribute("src",imageRoute)
+                    imgCarousel2.className="lightboxImg"
+                    carousel.appendChild(imgCarousel2)
+            }}
         }
         document.getElementById("left").addEventListener("click",previousImg)
         function nextImg() {
             let currentImg = document.querySelector(".lightboxImg");
-            let index = media.findIndex(  obj=> obj.id === parseInt(currentImg.id))
+            let index = media.findIndex(obj=> obj.id === parseInt(currentImg.id))
+            index += 1
             if (index<media.length) {
-                if(media.video){
+                if(media[index].video){
+                    const imgCarousel = document.querySelector(".lightboxImg");
+                    imgCarousel.remove();
+                    let imgCarousel2 = document.createElement("video");
                     const imageRoute = `assets/images/${media[index].video}`;
+                    imgCarousel2.setAttribute("id",media[index].id)
+                    imgCarousel2.setAttribute("src",imageRoute)
+                    imgCarousel2.className="lightboxImg"
+                    carousel.appendChild(imgCarousel2)
                 }
-                index += 1
-                const imgCarousel = document.querySelector(".lightboxImg");
-                const imageRoute = `assets/images/${media[index].image}`;
-                imgCarousel.setAttribute("id",media[index].id)
-                imgCarousel.setAttribute("src",imageRoute)                    
-            }
+                else{
+
+                    const imgCarousel = document.querySelector(".lightboxImg");
+                    imgCarousel.remove();
+                    let imgCarousel2 = document.createElement("img");
+                    const imageRoute = `assets/images/${media[index].image}`;
+                    imgCarousel2.setAttribute("id",media[index].id)
+                    imgCarousel2.setAttribute("src",imageRoute)
+                    imgCarousel2.className="lightboxImg"
+                    carousel.appendChild(imgCarousel2)
+            }}
         }
         document.getElementById("right").addEventListener("click",nextImg)
         /*Modal*/
