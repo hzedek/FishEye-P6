@@ -31,7 +31,7 @@ function photographerTemplate(data) {
         return (article);
     }
     
-    function photographerPageDisplay() {
+   async function photographerPageDisplay() {
         const nameId = document.getElementById("name");
         nameId.textContent = name;
         const cityId = document.getElementById("city");
@@ -41,7 +41,7 @@ function photographerTemplate(data) {
         img.setAttribute("src", picture);
         const media = data.newMedia;
         let sumlikes = 0
-
+    //trier
         for (let i = 0; i < media.length; i++) {
             const imageObject = media[i];
             const article = document.getElementById('article');
@@ -114,7 +114,6 @@ function photographerTemplate(data) {
             const closingLightbox = document.querySelector(".lightboxImg");
             lightbox_BG.style.display = "none";
             lightbox.style.display = "none";
-            console.log(closingLightbox);
             closingLightbox.remove();
             })
         function previousImg() {
@@ -178,3 +177,4 @@ function photographerTemplate(data) {
     
     return { name, picture, tagline, city,country, price,id, getUserCardDOM,photographerPageDisplay }
 }
+

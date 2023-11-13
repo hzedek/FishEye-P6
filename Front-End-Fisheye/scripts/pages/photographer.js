@@ -11,29 +11,33 @@ async function getPhotographer() {
     const newMedia = [];
     //récupération des données du photographe
     const photographer = photographers.find((user) => user.id === parseInt(_id));
-
     medias.forEach(media => {
         let mediaphotographer = media.photographerId === parseInt(_id);
         if (mediaphotographer) {
             newMedia.push(media)
         }
     });
-    //Creation de l'objet contenant les photos du photographe
-    function createElement(name,id,city,country,tagline,price,portrait,newMedia) {
-        return{
-            name,id,city,country,tagline,price,portrait,
-            newMedia
-        }
-    }
-    const newPhotographer = createElement(photographer.name,photographer.id,photographer.city,photographer.country,photographer.tagline,photographer.price,photographer.portrait,newMedia)
-    return ({newPhotographer})
+
+    const newPhotographer = {
+        name: photographer.name,
+        id: photographer.id,
+        city: photographer.city,
+        country: photographer.country,
+        tagline: photographer.tagline,
+        price: photographer.price,
+        portrait: photographer.portrait,
+        newMedia: newMedia
+    };
+    
+    return {newPhotographer};
 }
+
 
 async function displayData(newPhotographer) {
     const photographerModel = photographerTemplate(newPhotographer);
     photographerModel.photographerPageDisplay();
+    
     };
-
 
 async function init() {
     // display le photographe
@@ -41,4 +45,15 @@ async function init() {
     displayData(newPhotographer);
 }
 
+// Écouteur d'événement pour le tri par popularité
+document.getElementById('popularite_sort').addEventListener('click', async () => {
+    const {newPhotographer} = await getPhotographer();
+    const media = newPhotographer.newMedia
+    // Tri des médias par likes
+    media.sort((a, b) => a.likes - b.likes);
+    const articlesup = document.querySelector("article")
+    articlesup.innerHTML = "";
+    // Affichage des données triées
+    displayData(newPhotographer)
+});
 init();
