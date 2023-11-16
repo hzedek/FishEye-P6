@@ -5,7 +5,7 @@ function photographerTemplate(data) {
     function getUserCardDOM() { 
         const article = document.createElement( 'article' );
         const img = document.createElement( 'img' );
-        //Boutton cliquable sur l'image du photographe envoyant à son profil
+//Boutton cliquable sur l'image du photographe envoyant à son profil
         img.addEventListener('click', ()=>{
             document.location.href = 'http://127.0.0.1:5501/Front-End-Fisheye/photographer.html?'+id;
         })
@@ -41,7 +41,6 @@ function photographerTemplate(data) {
         img.setAttribute("src", picture);
         const media = data.newMedia;
         let sumlikes = 0
-    //trier
         for (let i = 0; i < media.length; i++) {
             const imageObject = media[i];
             const article = document.getElementById('article');
@@ -50,8 +49,10 @@ function photographerTemplate(data) {
                 const imageDisplay = `<div class="imageCard">
                 <img class="image" id="${media[i].id}" src="${imageRoute}" alt="">
                 <div class="title-likes">
-                    <p class="city">${imageObject.title}</p>
-                    <p class="city">${imageObject.likes}</p>
+                <p class="city">${imageObject.title}</p>
+                <div class="alignLikes">
+                    <p class="city likes">${imageObject.likes}</p>
+                    <i style="color:#901C1C" class="fa-regular fa-heart like"></i>
                     </div>
               </div>`
               article.innerHTML += imageDisplay;
@@ -62,13 +63,40 @@ function photographerTemplate(data) {
                 `<div class="imageCard">
                 <video class="image" id="${media[i].id}"  src="${imageRoute}" type="mp4"></video>
                 <div class="title-likes">
-                    <p class="city">${imageObject.title}</p>
-                    <p class="city">${imageObject.likes}</p>
-                </div>
+                <p class="city">${imageObject.title}</p>
+                <div class="alignLikes">
+                    <p class="city likes">${imageObject.likes}</p>
+                    <i style="color:#901C1C" class="fa-regular fa-heart like"></i>
+                    </div>
               </div>`
                 article.innerHTML += imageDisplay;
             }
-           // lightbox
+//Implémentation du like et remplissage de l'icone
+            const likeIcon = document.querySelectorAll(".fa-regular.fa-heart.like");
+            const dom_likes = document.querySelectorAll(".likes")
+                likeIcon.forEach(icon => icon.addEventListener("click",(e) => {
+                    const parentContainer = e.target.closest('.alignLikes');
+                    // Si l'élément parent a été trouvé, continuez
+                    if (parentContainer) {
+                    // Accédez à l'élément "likes" à l'intérieur de l'élément parent
+                        const numberLikes = parentContainer.querySelector('.likes');
+                
+                    // si icon coeur est regular (vide) alors +1
+                        if (e.target.classList.contains('fa-regular')) {
+                            numberLikes.innerHTML = parseInt(numberLikes.innerHTML) + 1;
+                        } else {
+                            numberLikes.innerHTML = parseInt(numberLikes.innerHTML) - 1;
+                        }
+                
+                    // Basculez les classes de l'icône
+                        e.target.classList.toggle('fa-regular');
+                        e.target.classList.toggle('fa-solid');
+                    }
+                 
+                    }))
+            
+                    
+// lightbox
             let imgBtns = document.querySelectorAll(".image");
             
             imgBtns.forEach(imgBtn => {
@@ -77,10 +105,10 @@ function photographerTemplate(data) {
                     let lightbox = document.getElementById("lightbox");
                     lightbox_BG.style.display = "block";
                     lightbox.style.display = "block";
+                    let carousel = document.getElementById("carousel");
                     if (imgBtn.attributes.type) {
                         let imgCarousel = document.createElement("video");
                         imgClicked = imgBtn.attributes.src.value
-                    let carousel = document.getElementById("carousel");
                     imgCarousel.className="lightboxImg"
                     imgCarousel.setAttribute("src",imgClicked)
                     imgCarousel.setAttribute("id",imgBtn.id)
@@ -89,7 +117,6 @@ function photographerTemplate(data) {
                     else{
                         let imgCarousel = document.createElement("img");
                         imgClicked = imgBtn.attributes.src.value
-                    let carousel = document.getElementById("carousel");
                     imgCarousel.className="lightboxImg"
                     imgCarousel.setAttribute("src",imgClicked)
                     imgCarousel.setAttribute("id",imgBtn.id)
@@ -98,12 +125,15 @@ function photographerTemplate(data) {
                 })
             })
 
-            //Somme des Likes et affiches de celui-ci dans la bannière
+//Somme des Likes et affiches de celui-ci dans la bannière
             sumlikes += parseInt(media[i].likes) ;
             const priceBanner = document.getElementById("priceBanner");
         const priceBannerDisplay = 
         `<div id="priceBanner">
-            <p>${sumlikes} L</p>
+            <div class="align">
+                <p>${sumlikes}</p>
+                <img src="assets/icons/heart-solid.svg"/>
+                </div>
             <p>${data.price}€ / jour</p>
         </div>`;
         priceBanner.innerHTML += priceBannerDisplay;
@@ -171,10 +201,13 @@ function photographerTemplate(data) {
             }}
         }
         document.getElementById("right").addEventListener("click",nextImg)
-        /*Modal*/
+/*Nom du photograph dans le Modal*/
         document.getElementById('modal-name').innerText += name 
     }
     
     return { name, picture, tagline, city,country, price,id, getUserCardDOM,photographerPageDisplay }
 }
+
+
+
 

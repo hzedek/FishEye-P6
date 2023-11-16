@@ -44,6 +44,7 @@ async function init() {
     const { newPhotographer} = await getPhotographer();
     displayData(newPhotographer);
 }
+init();
 
 // Écouteur d'événement pour le tri par popularité
 document.getElementById('popularite_sort').addEventListener('click', async () => {
@@ -56,4 +57,40 @@ document.getElementById('popularite_sort').addEventListener('click', async () =>
     // Affichage des données triées
     displayData(newPhotographer)
 });
-init();
+
+// Écouteur d'événement pour le tri par date
+document.getElementById('date_sort').addEventListener('click', async () => {
+    const {newPhotographer} = await getPhotographer();
+    const media = newPhotographer.newMedia
+    media.forEach(media => {
+        media.dateObj = new Date(media.date); 
+    });
+    media.sort((a, b) => a.dateObj - b.dateObj);
+    const articlesup = document.querySelector("article")
+    articlesup.innerHTML = "";
+    displayData(newPhotographer)
+});
+
+// Écouteur d'événement pour le tri par titre
+document.getElementById('titre_sort').addEventListener('click', async () => {
+    const {newPhotographer} = await getPhotographer();
+    const media = newPhotographer.newMedia
+    console.log(media);
+    // Tri des médias par likes
+    media.sort((a, b) => {
+        const titleA = a.title.toUpperCase();
+        const titleB = b.title.toUpperCase();
+    
+        if (titleA < titleB) {
+            return -1;
+        }
+        if (titleA > titleB) {
+            return 1;
+        }
+        return 0;
+    });;
+    const articlesup = document.querySelector("article")
+    articlesup.innerHTML = "";
+    // Affichage des données triées
+    displayData(newPhotographer)
+});

@@ -29,20 +29,12 @@
 .tagline{
     color: #525252;
 }
-/*.imgContainer{
-    width: 180px;
-    height: 180px;
-    overflow: hidden;
-    border-radius: 50%;
-}*/
 .img {
     width :200px;
     height :200px ;
     object-fit:cover;
     border-radius: 50%;
-    
-   /* object-position: -80px -100px;*/
-}
+    }
 .contact_button {
     font-size: 20px;
     font-weight: bold;
@@ -94,6 +86,26 @@ li{
     display: flex;
     justify-content: space-between;
 }
+.like{
+    font-size: 20px;
+}
+.alignLikes{
+    display: flex;
+    align-items: center;
+}
+.alignLikes p{
+    margin-right: 5px;
+}
+/* Définir la transition pour la propriété "transform" */
+.heart-icon {
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Ajouter une classe pour l'état "plein" */
+.heart-icon.fa-solid {
+    transform: scale(1.3);
+}
+
 /*lightbox*/
 .lightbox-Bg{
     display: none;
@@ -168,6 +180,13 @@ li{
     bottom: 0;
     justify-content: space-around;
     border-radius: 3% 3% 0% 0%;
+}
+.align{
+    display: flex;
+    align-items: center;
+}
+.align p{
+    margin-right: 5px;
 }
 /* MODAL */
 .bground {
