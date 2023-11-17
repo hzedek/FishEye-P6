@@ -110,27 +110,5 @@
     <script src="./scripts/templates/photographer.js"></script>
     <script src="./scripts/pages/photographer.js"></script>
     <script src="./scripts/utils/contactForm.js"></script>
-    <script>
-     const trierGrid = document.querySelector('.trier-grid');
-    const MenuDeroulant = document.querySelector('.MenuDeroulant');
-    const selectedOption = document.getElementById('selectedOption');
-    const buttonOption = document.getElementById('buttonOption');
-    
-
-    buttonOption.addEventListener('click', () => {
-      MenuDeroulant.style.display = (MenuDeroulant.style.display === 'none') ? 'block' : 'none';
-    });
-
-    // JavaScript pour gérer la sélection d'un élément de la liste
-    const liItems = document.querySelectorAll('.MenuDeroulant p');
-
-    liItems.forEach(item => {
-        item.addEventListener('click', () => {
-            // Mettez à jour le texte initial avec l'option sélectionnée
-            selectedOption.textContent = item.textContent;
-            MenuDeroulant.style.display = 'none';
-        });
-    });
-  </script>
   </body>
 </html>

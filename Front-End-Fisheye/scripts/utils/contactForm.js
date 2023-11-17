@@ -24,7 +24,9 @@ modalbtn.addEventListener("click", (event) => {
         let values = element.value.trim();
         if (values.length <2) {
             p.textContent += "veuillez remplir le champ "+element.name;
-            form.appendChild(p);
+        }
+        else{
+            console.log(element.value);
         }
         }
     

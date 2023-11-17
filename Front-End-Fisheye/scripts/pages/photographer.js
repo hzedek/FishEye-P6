@@ -94,3 +94,25 @@ document.getElementById("titre_sort").addEventListener("click", async () => {
   // Affichage des données triées
   displayData(newPhotographer);
 });
+
+//Fonction qui montre ou non le menu déroulant
+const trierGrid = document.querySelector('.trier-grid');
+const MenuDeroulant = document.querySelector('.MenuDeroulant');
+const selectedOption = document.getElementById('selectedOption');
+const buttonOption = document.getElementById('buttonOption');
+
+
+buttonOption.addEventListener('click', () => {
+  MenuDeroulant.style.display = (MenuDeroulant.style.display === 'none') ? 'block' : 'none';
+});
+
+// JavaScript pour gérer la sélection d'un élément de la liste
+const liItems = document.querySelectorAll('.MenuDeroulant p');
+
+liItems.forEach(item => {
+    item.addEventListener('click', () => {
+        // Mettez à jour le texte initial avec l'option sélectionnée
+        selectedOption.textContent = item.textContent;
+        MenuDeroulant.style.display = 'none';
+    });
+});
