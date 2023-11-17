@@ -24,13 +24,21 @@
           <img alt="" id="img" class="img">
        <!-- </div>  -->
       </div>
-      <div class="trier-grid">
-      <p class="trier">Trier Par</p>
-      <ul>
-        <li id="popularite_sort">Popularité</li>
-        <li id="date_sort">Date</li>
-        <li id="titre_sort">Titre</li>
-      </ul>
+      
+    <div class="trier-grid">
+    <div class="trier">
+      <p class="trierPar">Trier Par</p>
+      <div id="buttonOption">
+        <p id="selectedOption">Popularité</p>
+        <i class="fa-solid fa-chevron-down"></i>
+      </div>
+    </div>
+      <div class="MenuDeroulant">
+        <div class="iconRelative"><i class="fa-solid fa-chevron-up"></i></div>
+          <p id="popularite_sort">Popularité</p>
+          <p id="date_sort">Date</p>
+          <p id="titre_sort">Titre</p>
+      </div>
     </div>
     <article id="article">
     </article>
@@ -102,5 +110,27 @@
     <script src="./scripts/templates/photographer.js"></script>
     <script src="./scripts/pages/photographer.js"></script>
     <script src="./scripts/utils/contactForm.js"></script>
+    <script>
+     const trierGrid = document.querySelector('.trier-grid');
+    const MenuDeroulant = document.querySelector('.MenuDeroulant');
+    const selectedOption = document.getElementById('selectedOption');
+    const buttonOption = document.getElementById('buttonOption');
+    
+
+    buttonOption.addEventListener('click', () => {
+      MenuDeroulant.style.display = (MenuDeroulant.style.display === 'none') ? 'block' : 'none';
+    });
+
+    // JavaScript pour gérer la sélection d'un élément de la liste
+    const liItems = document.querySelectorAll('.MenuDeroulant p');
+
+    liItems.forEach(item => {
+        item.addEventListener('click', () => {
+            // Mettez à jour le texte initial avec l'option sélectionnée
+            selectedOption.textContent = item.textContent;
+            MenuDeroulant.style.display = 'none';
+        });
+    });
+  </script>
   </body>
 </html>
