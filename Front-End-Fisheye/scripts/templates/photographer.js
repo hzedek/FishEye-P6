@@ -23,10 +23,10 @@ function photographerTemplate(data) {
     p_tagline.textContent = tagline;
     const p_city = document.createElement("p");
     p_city.textContent = city + ", " + country;
-    p_city.classList.add("city");
+    p_city.classList.add("smallFontSize","indexLineHeight");
     const p_price = document.createElement("p");
     p_price.textContent = price + "/jour";
-    p_price.classList.add("tagline");
+    p_price.classList.add("indexLineHeight","greyColor");
     article.appendChild(img);
     article.appendChild(h2);
     article.appendChild(p_city);
@@ -54,9 +54,9 @@ function photographerTemplate(data) {
         const imageDisplay = `<div class="imageCard">
                 <img class="image" title="${imageObject.title}" id="${media[i].id}" src="${imageRoute}" alt="">
                 <div class="title-likes">
-                <p class="city">${imageObject.title}</p>
+                <p class="smallFontSize redWineColor">${imageObject.title}</p>
                 <div class="alignLikes">
-                    <p class="city likes">${imageObject.likes}</p>
+                    <p class="smallFontSize redWineColor likes">${imageObject.likes}</p>
                     <i style="color:#901C1C" class="fa-regular fa-heart like"></i>
                     </div>
               </div>`;
@@ -67,9 +67,9 @@ function photographerTemplate(data) {
         const imageDisplay = `<div class="imageCard">
                 <video class="image" title="${imageObject.title}" id="${media[i].id}"  src="${imageRoute}" type="mp4"></video>
                 <div class="title-likes">
-                <p class="city">${imageObject.title}</p>
+                <p class="smallFontSize redWineColor">${imageObject.title}</p>
                 <div class="alignLikes">
-                    <p class="city likes">${imageObject.likes}</p>
+                    <p class="smallFontSize redWineColor likes">${imageObject.likes}</p>
                     <i style="color:#901C1C" class="fa-regular fa-heart like"></i>
                     </div>
               </div>`;
@@ -102,7 +102,7 @@ function photographerTemplate(data) {
           }
           let imgTitle = document.createElement("p");
           imgTitle.innerText = imgBtn.title;
-          imgTitle.className = "city imgTitle";
+          imgTitle.className = "smallFontSize redWineColor imgTitle";
           carousel.appendChild(imgTitle);
         });
       });
@@ -112,7 +112,7 @@ function photographerTemplate(data) {
       const priceBanner = document.getElementById("priceBanner");
       const priceBannerDisplay = `<div id="priceBanner">
             <div class="align">
-                <p id="sumLikes">${sumlikes}</p>
+                <p>${sumlikes}</p>
                 <img src="assets/icons/heart-solid.svg"/>
                 </div>
             <p>${data.price}€ / jour</p>
@@ -132,10 +132,6 @@ function photographerTemplate(data) {
           // si icon coeur est regular (vide) alors +1
           if (e.target.classList.contains("fa-regular")) {
             numberLikes.innerHTML = parseInt(numberLikes.innerHTML) + 1;
-            /*let sumLikes = document.getElementById('sumLikes')
-           let newsumlikes = sumlikes +1
-            sumLikes.remove()
-            console.log(newsumlikes);*/
           } else {
             numberLikes.innerHTML = parseInt(numberLikes.innerHTML) - 1;
           }

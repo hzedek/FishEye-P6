@@ -21,11 +21,17 @@
   font-size: 3em;
   line-height: 3%;
 }
-.city {
+.redWineColor {
   color: #901c1c;
+}
+.indexLineHeight{
+  line-height: 10px;
+  margin: 0px;
+}
+.smallFontSize{
   font-size: 1.3em;
 }
-.tagline {
+.greyColor {
   color: #525252;
 }
 .img {
