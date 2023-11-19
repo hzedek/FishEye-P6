@@ -10,7 +10,7 @@
   </head>
   <body>
     <header>
-      <img src="assets/images/logo.png" class="logo" />
+      <img role="navigation" aria-label="page d'accueil" src="assets/images/logo.png" class="logo" tabindex="0" />
     </header>
     <main id="main">
       <div class="photograph-header">
@@ -19,94 +19,73 @@
           <p class="smallFontSize redWineColor" id="city"></p>
           <p class="smallFontSize greyColor tagline" id="tagline"></p>
         </div>
-        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
-        <!-- <div class="imgContainer"> -->
-          <img alt="" id="img" class="img">
-       <!-- </div>  -->
+        <button class="contact_button" onclick="displayModal()" aria-label="Ouvrir la fenêtre de contact">Contactez-moi</button>
+        <img alt="" id="img" class="img" tabindex="0">
       </div>
       
-    <div class="trier-grid">
-    <div class="trier">
-      <p class="trierPar">Trier Par</p>
-      <div id="buttonOption">
-        <p id="selectedOption">Popularité</p>
-        <i class="fa-solid fa-chevron-down"></i>
-      </div>
-    </div>
-      <div class="MenuDeroulant">
-        <div class="iconRelative"><i class="fa-solid fa-chevron-up"></i></div>
-          <p id="popularite_sort">Popularité</p>
-          <p id="date_sort">Date</p>
-          <p id="titre_sort">Titre</p>
-      </div>
-    </div>
-    <article id="article">
-    </article>
-<!--lightbox-->
-    <div class="lightbox-Bg"></div>
-    <div id="lightbox">
-      <div id="carousel"></div>
-      <img id="close" src="assets/icons/closeR.svg"/>
-      <img class="chevron" id="left" src="assets/icons/chevron-right-solid.svg"  />
-      <img class="chevron" id="right" src="assets/icons/chevron-right-solid.svg" />
-    </div>
-<!--MODAL> -->
-    <div class="bground"></div>
-    <div id="contact_modal">
-			<div class="modal">
-				<header>
-          <h2 id="modalname">Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" />
-        </header>
-          <h2 id="modal-name"></h2>
-				<form>
-					<div>
-                <label for="first">Prénom</label>
-                <input novalidate
-                  class="getValue"
-                  type="text"
-                  id="first"
-                  name="first"
-                  minlength="2"
-                  required
-                />
-              </div>
-              <div>
-                <label for="last">Nom</label>
-                <input novalidate
-                  class="getValue"
-                  type="text"
-                  id="last"
-                  name="last"
-                  minlength="2"
-                  required
-                />
-              </div>
-              <div>
-                <label for="email">E-mail</label>
-                <input novalidate
-                  class="getValue"
-                  type="email"
-                  id="email"
-                  name="email"
-                  required
-                />
-                <div>
-                <label for="Votre message">Votre message</label>
-                <textarea novalidate
-                class="getValue"
-                  id="message"
-                  name="message"
-                  rows="7" cols="73">
-                </textarea>
-              </div>
-          <button id="contact_button" class="contact_button" type="" >Envoyer</button>
-				</form>
+      <div class="trier-grid">
+        <div class="trier">
+          <p class="trierPar">Trier Par</p>
+          <div id="buttonOption" role="button" aria-controls="menuOptions" aria-haspopup="true" aria-expanded="false" tabindex="0">
+            <p id="selectedOption">
+            Popularité</p>
+            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+          </div>
         </div>
-			</div>
-		</div>
-    <div id="priceBanner"></div>
+        <div id="menuOptions" class="MenuDeroulant" role="navigation" aria-hidden="true">
+          <div aria-hidden="true" class="iconRelative"><i class="fa-solid fa-chevron-up"></i></div>
+          <p id="popularite_sort" role="button" tabindex="-1">Popularité</p>
+          <p id="date_sort" role="button" tabindex="-1">Date</p>
+          <p id="titre_sort" role="button" tabindex="-1">Titre</p>
+        </div>
+      </div>
+      
+      <article id="article" role="article">
+      </article>
+
+      <!--lightbox-->
+      <div class="lightbox-Bg"></div>
+      <div id="lightbox" role="region" aria-modal="true" aria-describedby="Diaporama des photos du photographe">
+        <div id="carousel"></div>
+        <img id="close" src="assets/icons/closeR.svg" alt="Fermer la lightbox"/>
+        <img class="chevron" id="left" src="assets/icons/chevron-right-solid.svg" tabindex="0" alt="Diapo précédente" />
+        <img class="chevron" id="right" src="assets/icons/chevron-right-solid.svg" tabindex="0" alt="Diapo suivante" />
+      </div>
+
+      <!--MODAL-->
+      <div class="bground"></div>
+      <div id="contact_modal" role="dialog" aria-modal="true">
+        <div class="modal">
+          <header>
+            <h2 id="modalname">Contactez-moi</h2>
+            <img src="assets/icons/close.svg" onclick="closeModal()" alt="Fermer la fenêtre de contact" tabindex="0"/>
+          </header>
+          <h2 id="modal-name"></h2>
+          <form>
+            <div>
+              <label for="first">Prénom</label>
+              <input novalidate class="getValue" type="text" id="first" name="first" minlength="2" required aria-required="true" />
+            </div>
+            <div>
+              <label for="last">Nom</label>
+              <input novalidate class="getValue" type="text" id="last" name="last" minlength="2" required aria-required="true" />
+            </div>
+            <div>
+              <label for="email">E-mail</label>
+              <input novalidate class="getValue" type="email" id="email" name="email" required aria-required="true" />
+            </div>
+            <div>
+              <label for="Votre message">Votre message</label>
+              <textarea novalidate class="getValue" id="message" name="message" rows="7" cols="73" aria-required="true"></textarea>
+            </div>
+            <button id="contact_button" class="contact_button" type="submit">Envoyer</button>
+          </form>
+        </div>
+      </div>
+      
+      <div id="priceBanner" role="status"></div>
     </main>
+    
     <script src="./scripts/templates/photographer.js"></script>
     <script src="./scripts/pages/photographer.js"></script>
     <script src="./scripts/utils/contactForm.js"></script>

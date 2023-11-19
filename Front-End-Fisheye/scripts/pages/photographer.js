@@ -45,21 +45,29 @@ async function init() {
 init();
 
 // Écouteur d'événement pour le tri par popularité
-document
-  .getElementById("popularite_sort")
-  .addEventListener("click", async () => {
-    const { newPhotographer } = await getPhotographer();
-    const media = newPhotographer.newMedia;
-    // Tri des médias par likes
-    media.sort((a, b) => a.likes - b.likes);
-    const articlesup = document.querySelector("article");
-    articlesup.innerHTML = "";
-    // Affichage des données triées
-    displayData(newPhotographer);
-  });
+async function sortByPopularity() {
+  const { newPhotographer } = await getPhotographer();
+  const media = newPhotographer.newMedia;
+  // Tri des médias par likes
+  media.sort((a, b) => a.likes - b.likes);
+  const articlesup = document.querySelector("article");
+  articlesup.innerHTML = "";
+  // Affichage des données triées
+  displayData(newPhotographer);
+}
+
+document.getElementById("popularite_sort").addEventListener("click", async () => {
+  sortByPopularity();
+});
+document.getElementById("popularite_sort").addEventListener("keydown", async (event) => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    sortByPopularity();
+  }
+});
 
 // Écouteur d'événement pour le tri par date
-document.getElementById("date_sort").addEventListener("click", async () => {
+async function sortByDate() {
   const { newPhotographer } = await getPhotographer();
   const media = newPhotographer.newMedia;
   media.forEach((media) => {
@@ -69,10 +77,19 @@ document.getElementById("date_sort").addEventListener("click", async () => {
   const articlesup = document.querySelector("article");
   articlesup.innerHTML = "";
   displayData(newPhotographer);
-});
+}
 
+document.getElementById("date_sort").addEventListener("click", async () => {
+  sortByDate();
+});
+document.getElementById("date_sort").addEventListener("keydown", async (event) => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    sortByDate();
+  }
+});
 // Écouteur d'événement pour le tri par titre
-document.getElementById("titre_sort").addEventListener("click", async () => {
+async function sortByTitle() {
   const { newPhotographer } = await getPhotographer();
   const media = newPhotographer.newMedia;
   console.log(media);
@@ -93,6 +110,16 @@ document.getElementById("titre_sort").addEventListener("click", async () => {
   articlesup.innerHTML = "";
   // Affichage des données triées
   displayData(newPhotographer);
+}
+
+document.getElementById("titre_sort").addEventListener("click", async () => {
+sortByTitle()
+});
+document.getElementById("titre_sort").addEventListener("keydown", async (event) => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    sortByTitle();
+  }
 });
 
 //Fonction qui montre ou non le menu déroulant
@@ -100,19 +127,51 @@ const trierGrid = document.querySelector('.trier-grid');
 const MenuDeroulant = document.querySelector('.MenuDeroulant');
 const selectedOption = document.getElementById('selectedOption');
 const buttonOption = document.getElementById('buttonOption');
+const liItems = document.querySelectorAll('.MenuDeroulant p');
+const menuOptions = document.getElementById('menuOptions')
 
+buttonOption.addEventListener('keydown', () => {
+  MenuDeroulant.style.display = "block";
+      // Mettre le focus sur le premier élément du menu lorsque celui-ci s'ouvre
+      document.getElementById('popularite_sort').focus();
+  toggleMenu();
+});
 
 buttonOption.addEventListener('click', () => {
-  MenuDeroulant.style.display = (MenuDeroulant.style.display === 'none') ? 'block' : 'none';
+  MenuDeroulant.style.display = "block";
 });
 
 // JavaScript pour gérer la sélection d'un élément de la liste
-const liItems = document.querySelectorAll('.MenuDeroulant p');
-
-liItems.forEach(item => {
+liItems.forEach((item, index) => {
     item.addEventListener('click', () => {
-        // Mettez à jour le texte initial avec l'option sélectionnée
         selectedOption.textContent = item.textContent;
         MenuDeroulant.style.display = 'none';
+        })
+   item.addEventListener('keydown', (event) => {
+          if (event.key === 'ArrowDown') {
+            // Naviguer vers le bas
+            liItems[(index + 1) % liItems.length].focus();
+          } else if (event.key === 'ArrowUp') {
+            // Naviguer vers le haut
+            liItems[(index - 1 + liItems.length) % liItems.length].focus();
+          }
+          if(event.key === 'Enter'){
+          selectedOption.textContent = item.textContent;
+          MenuDeroulant.style.display = 'none';
+          closeMenu()
+          }
+        });    
     });
-});
+
+function toggleMenu() {
+  const expanded = buttonOption.getAttribute('aria-expanded') === 'true';
+  buttonOption.setAttribute('aria-expanded', !expanded);
+  menuOptions.setAttribute('aria-hidden', expanded);
+  if (!expanded) {
+  }
+}
+function closeMenu() {
+  buttonOption.setAttribute('aria-expanded', 'false');
+  menuOptions.setAttribute('aria-hidden', 'true');
+  buttonOption.focus();
+}

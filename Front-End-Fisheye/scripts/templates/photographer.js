@@ -8,12 +8,14 @@ function photographerTemplate(data) {
   const picture = `assets/photographers/${portrait}`;
   function getUserCardDOM() {
     const article = document.createElement("article");
-    const img = document.createElement("img");
     //Boutton cliquable sur l'image du photographe envoyant à son profil
+    const img = document.createElement("img"); // Utiliser une balise <button> pour l'élément cliquable
     img.addEventListener("click", () => {
-      document.location.href =
+      location.href =
         "http://127.0.0.1:5501/Front-End-Fisheye/photographer.html?" + id;
     });
+    img.setAttribute("aria-label", `Voir le profil de ${name}`); // Ajouter une description ARIA
+    img.setAttribute("role", "link"); // Ajouter un rôle ARIA
     img.setAttribute("src", picture);
     img.classList.add("img");
     const h2 = document.createElement("h2");
@@ -79,33 +81,33 @@ function photographerTemplate(data) {
       let imgBtns = document.querySelectorAll(".image");
 
       imgBtns.forEach((imgBtn) => {
+        const imgTitle = imgBtn.title;
         imgBtn.addEventListener("click", function lightbox() {
           let lightbox_BG = document.querySelector(".lightbox-Bg");
           let lightbox = document.getElementById("lightbox");
           lightbox_BG.style.display = "block";
           lightbox.style.display = "block";
           let carousel = document.getElementById("carousel");
+          let imgCarousel;
+  
           if (imgBtn.attributes.type) {
-            let imgCarousel = document.createElement("video");
-            imgClicked = imgBtn.attributes.src.value;
-            imgCarousel.className = "lightboxImg";
-            imgCarousel.setAttribute("src", imgClicked);
-            imgCarousel.setAttribute("id", imgBtn.id);
-            carousel.appendChild(imgCarousel);
+            imgCarousel = document.createElement("video");
+            imgCarousel.setAttribute("controls", "controls"); // Ajouter des contrôles pour les vidéos
           } else {
-            let imgCarousel = document.createElement("img");
-            imgClicked = imgBtn.attributes.src.value;
-            imgCarousel.className = "lightboxImg";
-            imgCarousel.setAttribute("src", imgClicked);
-            imgCarousel.setAttribute("id", imgBtn.id);
-            carousel.appendChild(imgCarousel);
+            imgCarousel = document.createElement("img");
           }
-          let imgTitle = document.createElement("p");
-          imgTitle.innerText = imgBtn.title;
-          imgTitle.className = "smallFontSize redWineColor imgTitle";
-          carousel.appendChild(imgTitle);
+  
+          imgCarousel.className = "lightboxImg";
+          imgCarousel.setAttribute("src", imgBtn.attributes.src.value);
+          imgCarousel.setAttribute("id", imgBtn.id);
+          carousel.appendChild(imgCarousel);
+  
+          let imgTitleElement = document.createElement("p");
+          imgTitleElement.innerText = imgTitle;
+          imgTitleElement.className = "smallFontSize redWineColor imgTitle";
+          carousel.appendChild(imgTitleElement);
         });
-      });
+      })
 
       //Somme des Likes et affiches de celui-ci dans la bannière
       sumlikes += parseInt(media[i].likes);
@@ -213,7 +215,7 @@ function photographerTemplate(data) {
     }
     document.getElementById("right").addEventListener("click", nextImg);
     /*Nom du photograph dans le Modal*/
-    document.getElementById("modal-name").innerText += name;
+    document.getElementById("modal-name").innerText = name;
   }
 
   return {
