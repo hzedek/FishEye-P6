@@ -6,6 +6,10 @@
   right: 2%;
   left: 2%;
 }
+#closeButtonModal{
+  border: none;
+  background-color: #db8876;
+}
 
 .photograph-header {
   background-color: #fafafa;

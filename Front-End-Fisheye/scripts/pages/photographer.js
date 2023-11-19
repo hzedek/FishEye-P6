@@ -92,7 +92,6 @@ document.getElementById("date_sort").addEventListener("keydown", async (event) =
 async function sortByTitle() {
   const { newPhotographer } = await getPhotographer();
   const media = newPhotographer.newMedia;
-  console.log(media);
   // Tri des médias par likes
   media.sort((a, b) => {
     const titleA = a.title.toUpperCase();
@@ -130,11 +129,13 @@ const buttonOption = document.getElementById('buttonOption');
 const liItems = document.querySelectorAll('.MenuDeroulant p');
 const menuOptions = document.getElementById('menuOptions')
 
-buttonOption.addEventListener('keydown', () => {
-  MenuDeroulant.style.display = "block";
-      // Mettre le focus sur le premier élément du menu lorsque celui-ci s'ouvre
-      document.getElementById('popularite_sort').focus();
-  toggleMenu();
+buttonOption.addEventListener('keydown', (event) => {
+  if(event.key === 'Enter'){
+    MenuDeroulant.style.display = "block";
+    // Mettre le focus sur le premier élément du menu lorsque celui-ci s'ouvre
+    document.getElementById('popularite_sort').focus();
+toggleMenu();
+  }
 });
 
 buttonOption.addEventListener('click', () => {
