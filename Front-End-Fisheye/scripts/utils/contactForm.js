@@ -9,9 +9,7 @@ const p = document.createElement("p");
 function displayModal(event) {
 	modal.style.display = "block";
     modalbg.style.display = "block";
-    if(event.key === "Enter") {
-        document.getElementById('first').focus()
-    }
+    document.getElementById('first').focus();
 }
 function closeModal() {
     modal.style.display = "none";

@@ -2,6 +2,11 @@
 document.querySelector(".logo").onclick = function () {
   location.href = "http://127.0.0.1:5501/Front-End-Fisheye/";
 };
+document.querySelector(".logo").addEventListener("keydown",function (event) {
+if (event.key === "Enter") {
+  location.href = "http://127.0.0.1:5501/Front-End-Fisheye/";
+}
+});
 
 function photographerTemplate(data) {
   const { name, portrait, tagline, city, country, price, id } = data;
@@ -54,12 +59,14 @@ function photographerTemplate(data) {
       if (imageObject.image) {
         const imageRoute = `assets/images/${imageObject.image}`;
         const imageDisplay = `<div class="imageCard">
-                <img class="image" title="${imageObject.title}" id="${media[i].id}" src="${imageRoute}" alt="">
+                <button role="button" tabindex="0" class="buttonImg">
+                <img class="image" id="${media[i].id}" title="${imageObject.title}" src="${imageRoute}" alt="${imageObject.title}">
+                </button>
                 <div class="title-likes">
                 <p class="smallFontSize redWineColor">${imageObject.title}</p>
                 <div class="alignLikes">
                     <p class="smallFontSize redWineColor likes">${imageObject.likes}</p>
-                    <i style="color:#901C1C" class="fa-regular fa-heart like"></i>
+                    <i role="button" style="color:#901C1C" class="fa-regular fa-heart like"></i>
                     </div>
               </div>`;
         article.innerHTML += imageDisplay;
@@ -67,7 +74,7 @@ function photographerTemplate(data) {
       if (imageObject.video) {
         const imageRoute = `assets/images/${imageObject.video}`;
         const imageDisplay = `<div class="imageCard">
-                <video class="image" title="${imageObject.title}" id="${media[i].id}"  src="${imageRoute}" type="mp4"></video>
+                <video role="button" tabindex="0" class="image" title="${imageObject.title}" id="${media[i].id}"  src="${imageRoute}" type="mp4"></video>
                 <div class="title-likes">
                 <p class="smallFontSize redWineColor">${imageObject.title}</p>
                 <div class="alignLikes">
@@ -78,34 +85,33 @@ function photographerTemplate(data) {
         article.innerHTML += imageDisplay;
       }
       // lightbox
-      let imgBtns = document.querySelectorAll(".image");
+      let imgBtns = document.querySelectorAll(".buttonImg");
 
       imgBtns.forEach((imgBtn) => {
         const imgTitle = imgBtn.title;
         imgBtn.addEventListener("click", function lightbox() {
+          const clickButton = imgBtn.querySelector(".image");
           let lightbox_BG = document.querySelector(".lightbox-Bg");
-          let lightbox = document.getElementById("lightbox");
+          let lightbox = document.getElementById("lightbox");     
           lightbox_BG.style.display = "block";
           lightbox.style.display = "block";
           let carousel = document.getElementById("carousel");
           let imgCarousel;
-  
-          if (imgBtn.attributes.type) {
+          if (clickButton.attributes.type) {
             imgCarousel = document.createElement("video");
             imgCarousel.setAttribute("controls", "controls"); // Ajouter des contrôles pour les vidéos
           } else {
             imgCarousel = document.createElement("img");
           }
-  
           imgCarousel.className = "lightboxImg";
-          imgCarousel.setAttribute("src", imgBtn.attributes.src.value);
-          imgCarousel.setAttribute("id", imgBtn.id);
+          imgCarousel.setAttribute("src", clickButton.attributes.src.value);
+          imgCarousel.setAttribute("id", clickButton.id);
           carousel.appendChild(imgCarousel);
-  
           let imgTitleElement = document.createElement("p");
           imgTitleElement.innerText = imgTitle;
           imgTitleElement.className = "smallFontSize redWineColor imgTitle";
           carousel.appendChild(imgTitleElement);
+          document.getElementById("left").focus()
         });
       })
 
@@ -144,7 +150,7 @@ function photographerTemplate(data) {
         }
       })
     );
-    document.getElementById("close").addEventListener("click", function () {
+    function closeLightbox() {
       const lightbox_BG = document.querySelector(".lightbox-Bg");
       const lightbox = document.getElementById("lightbox");
       const lightboxImg = document.querySelector(".lightboxImg");
@@ -153,8 +159,15 @@ function photographerTemplate(data) {
       lightboxImg.remove();
       const imgTitle = document.querySelector(".imgTitle");
       imgTitle.remove();
+    }
+    document.getElementById("close").addEventListener("click", function () {
+      closeLightbox()
     });
-    function previousImg() {
+    document.getElementById("close").addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        closeLightbox();
+      }});
+function previousImg() {
       let currentImg = document.querySelector(".lightboxImg");
       let index = media.findIndex((obj) => obj.id === parseInt(currentImg.id));
       if (index > 0) {
@@ -214,6 +227,17 @@ function photographerTemplate(data) {
       }
     }
     document.getElementById("right").addEventListener("click", nextImg);
+    document.getElementById("left").addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        previousImg();
+      }
+    });
+    
+    document.getElementById("right").addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        nextImg();
+      }
+    });
     /*Nom du photograph dans le Modal*/
     document.getElementById("modal-name").innerText = name;
   }

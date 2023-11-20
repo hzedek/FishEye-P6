@@ -10,6 +10,14 @@
   border: none;
   background-color: #db8876;
 }
+.buttonImg{
+  border:none;
+  background-color: white;
+}
+.lightboxBtn{
+  border:none;
+  background-color: white;
+}
 
 .photograph-header {
   background-color: #fafafa;

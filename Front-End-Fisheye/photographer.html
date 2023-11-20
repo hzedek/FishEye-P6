@@ -10,7 +10,7 @@
   </head>
   <body>
     <header>
-      <img role="navigation" aria-label="page d'accueil" src="assets/images/logo.png" class="logo" tabindex="0" />
+      <img role="button" aria-label="page d'accueil" src="assets/images/logo.png" class="logo" tabindex="0" />
     </header>
     <main id="main">
       <div class="photograph-header">
@@ -19,7 +19,7 @@
           <p class="smallFontSize redWineColor" id="city"></p>
           <p class="smallFontSize greyColor tagline" id="tagline"></p>
         </div>
-        <button class="contact_button" onkeydown="displayModal(event)" onclick="displayModal()" aria-label="Ouvrir la fenêtre de contact">Contactez-moi</button>
+        <button class="contact_button"  onclick="displayModal()" aria-label="Ouvrir la fenêtre de contact">Contactez-moi</button>
         <img aria-hidden="true" id="img" class="img">
       </div>
       
@@ -46,10 +46,10 @@
       <!--lightbox-->
       <div class="lightbox-Bg"></div>
       <div id="lightbox" role="region" aria-modal="true" aria-describedby="Diaporama des photos du photographe">
-        <div id="carousel"></div>
-        <img id="close" src="assets/icons/closeR.svg" alt="Fermer la lightbox"/>
-        <img class="chevron" id="left" src="assets/icons/chevron-right-solid.svg" tabindex="0" alt="Diapo précédente" />
-        <img class="chevron" id="right" src="assets/icons/chevron-right-solid.svg" tabindex="0" alt="Diapo suivante" />
+        <div id="carousel" ></div>
+        <img role="button" id="close" src="assets/icons/closeR.svg" tabindex="0" alt="Fermer la lightbox"/>
+        <img role="button" class="chevron" id="left" src="assets/icons/chevron-right-solid.svg" tabindex="0" alt="Diapo précédente" />
+        <img role="button" class="chevron" id="right" src="assets/icons/chevron-right-solid.svg" tabindex="0" alt="Diapo suivante" />
       </div>
 
       <!--MODAL-->
