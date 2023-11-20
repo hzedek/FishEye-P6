@@ -19,9 +19,15 @@ function photographerTemplate(data) {
       location.href =
         "http://127.0.0.1:5501/Front-End-Fisheye/photographer.html?" + id;
     });
+    img.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        location.href = "http://127.0.0.1:5501/Front-End-Fisheye/photographer.html?" + id;
+      }
+    });
     img.setAttribute("aria-label", `Voir le profil de ${name}`); // Ajouter une description ARIA
     img.setAttribute("role", "link"); // Ajouter un rôle ARIA
     img.setAttribute("src", picture);
+    img.setAttribute("tabindex", "0");
     img.classList.add("img");
     const h2 = document.createElement("h2");
     h2.textContent = name;
