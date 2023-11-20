@@ -59,14 +59,14 @@ function photographerTemplate(data) {
       if (imageObject.image) {
         const imageRoute = `assets/images/${imageObject.image}`;
         const imageDisplay = `<div class="imageCard">
-                <button role="button" tabindex="0" class="buttonImg">
+                <button tabindex="0" class="buttonImg">
                 <img class="image" id="${media[i].id}" title="${imageObject.title}" src="${imageRoute}" alt="${imageObject.title}">
                 </button>
                 <div class="title-likes">
                 <p class="smallFontSize redWineColor">${imageObject.title}</p>
                 <div class="alignLikes">
                     <p class="smallFontSize redWineColor likes">${imageObject.likes}</p>
-                    <i role="button" style="color:#901C1C" class="fa-regular fa-heart like"></i>
+                    <i role="button" tabindex="0" style="color:#901C1C" class="fa-regular fa-heart like"></i>
                     </div>
               </div>`;
         article.innerHTML += imageDisplay;
@@ -74,12 +74,14 @@ function photographerTemplate(data) {
       if (imageObject.video) {
         const imageRoute = `assets/images/${imageObject.video}`;
         const imageDisplay = `<div class="imageCard">
-                <video role="button" tabindex="0" class="image" title="${imageObject.title}" id="${media[i].id}"  src="${imageRoute}" type="mp4"></video>
+                <button  tabindex="0" class="buttonImg">
+                <video class="image" title="${imageObject.title}" id="${media[i].id}"  src="${imageRoute}" type="mp4"></video>
+                </button>
                 <div class="title-likes">
                 <p class="smallFontSize redWineColor">${imageObject.title}</p>
                 <div class="alignLikes">
                     <p class="smallFontSize redWineColor likes">${imageObject.likes}</p>
-                    <i style="color:#901C1C" class="fa-regular fa-heart like"></i>
+                    <i role="button" tabindex="0" style="color:#901C1C" class="fa-regular fa-heart like"></i>
                     </div>
               </div>`;
         article.innerHTML += imageDisplay;
@@ -100,6 +102,8 @@ function photographerTemplate(data) {
           if (clickButton.attributes.type) {
             imgCarousel = document.createElement("video");
             imgCarousel.setAttribute("controls", "controls"); // Ajouter des contrôles pour les vidéos
+            imgCarousel.setAttribute("tabIndex", "2");
+
           } else {
             imgCarousel = document.createElement("img");
           }
@@ -129,27 +133,57 @@ function photographerTemplate(data) {
     }
     //Implémentation du like et remplissage de l'icone
     const likeIcon = document.querySelectorAll(".fa-regular.fa-heart.like");
-    likeIcon.forEach((icon) =>
-      icon.addEventListener("click", async (e) => {
-        const parentContainer = e.target.closest(".alignLikes");
-        // Si l'élément parent a été trouvé, continuez
-        if (parentContainer) {
-          // Accédez à l'élément "likes" à l'intérieur de l'élément parent
-          const numberLikes = parentContainer.querySelector(".likes");
 
-          // si icon coeur est regular (vide) alors +1
-          if (e.target.classList.contains("fa-regular")) {
-            numberLikes.innerHTML = parseInt(numberLikes.innerHTML) + 1;
-          } else {
-            numberLikes.innerHTML = parseInt(numberLikes.innerHTML) - 1;
-          }
+likeIcon.forEach((icon) => {
+  icon.setAttribute("role", "button");
+  icon.setAttribute("tabindex", "0");
 
-          // Basculez les classes de l'icône
-          e.target.classList.toggle("fa-regular");
-          e.target.classList.toggle("fa-solid");
+  async function likeOrNot(e) {
+    const parentContainer = e.target.closest(".alignLikes");
+
+    // Si l'élément parent a été trouvé, continuez
+    if (parentContainer) {
+      // Accédez à l'élément "likes" à l'intérieur de l'élément parent
+      const numberLikes = parentContainer.querySelector(".likes");
+
+      // si icon coeur est regular (vide) alors +1
+      if (e.target.classList.contains("fa-regular")) {
+        numberLikes.innerHTML = parseInt(numberLikes.innerHTML) + 1;
+      } else {
+        numberLikes.innerHTML = parseInt(numberLikes.innerHTML) - 1;
+      }
+
+      // Basculez les classes de l'icône
+      e.target.classList.toggle("fa-regular");
+      e.target.classList.toggle("fa-solid");
+    }
+  }
+  icon.addEventListener("keydown",(e)=>{
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+
+      const parentContainer = e.target.closest(".alignLikes");
+
+      // Si l'élément parent a été trouvé, continuez
+      if (parentContainer) {
+        // Accédez à l'élément "likes" à l'intérieur de l'élément parent
+        const numberLikes = parentContainer.querySelector(".likes");
+
+        // si icon coeur est regular (vide) alors +1
+        if (e.target.classList.contains("fa-regular")) {
+          numberLikes.innerHTML = parseInt(numberLikes.innerHTML) + 1;
+        } else {
+          numberLikes.innerHTML = parseInt(numberLikes.innerHTML) - 1;
         }
-      })
-    );
+
+        // Basculez les classes de l'icône
+        e.target.classList.toggle("fa-regular");
+        e.target.classList.toggle("fa-solid");
+      }}
+  })
+
+  icon.addEventListener("click", likeOrNot);
+});
     function closeLightbox() {
       const lightbox_BG = document.querySelector(".lightbox-Bg");
       const lightbox = document.getElementById("lightbox");
@@ -167,7 +201,7 @@ function photographerTemplate(data) {
       if (event.key === "Enter") {
         closeLightbox();
       }});
-function previousImg() {
+    function previousImg() {
       let currentImg = document.querySelector(".lightboxImg");
       let index = media.findIndex((obj) => obj.id === parseInt(currentImg.id));
       if (index > 0) {
@@ -181,6 +215,8 @@ function previousImg() {
           const imageRoute = `assets/images/${media[index].video}`;
           imgCarousel2.setAttribute("id", media[index].id);
           imgCarousel2.setAttribute("src", imageRoute);
+          imgCarousel2.setAttribute("controls", "controls");
+          imgCarousel2.setAttribute("tabIndex", "2");
           imgCarousel2.className = "lightboxImg";
           carousel.appendChild(imgCarousel2);
         } else {
@@ -211,6 +247,8 @@ function previousImg() {
           const imageRoute = `assets/images/${media[index].video}`;
           imgCarousel2.setAttribute("id", media[index].id);
           imgCarousel2.setAttribute("src", imageRoute);
+          imgCarousel2.setAttribute("controls", "controls");
+          imgCarousel2.setAttribute("tabIndex", "2");
           imgCarousel2.className = "lightboxImg";
           carousel.appendChild(imgCarousel2);
         } else {
