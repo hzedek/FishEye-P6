@@ -1,24 +1,7 @@
-#contact_modal {
-  display: none;
-  z-index: 2;
-  position: fixed;
-  top: 2%;
-  right: 2%;
-  left: 2%;
-}
-#closeButtonModal{
-  border: none;
-  background-color: #db8876;
-}
 .buttonImg{
   border:none;
   background-color: white;
 }
-.lightboxBtn{
-  border:none;
-  background-color: white;
-}
-
 .photograph-header {
   background-color: #fafafa;
   height: 300px;
@@ -179,6 +162,10 @@
 }
 
 /*lightbox*/
+.lightboxBtn{
+  border:none;
+  background-color: white;
+}
 .lightbox-Bg {
   display: none;
   position: fixed;
@@ -270,6 +257,18 @@
   width: 100%;
   overflow: auto;
   background-color: rgba(51, 51, 51, 0.503);
+}
+#contact_modal {
+  display: none;
+  z-index: 2;
+  position: fixed;
+  top: 2%;
+  right: 2%;
+  left: 2%;
+}
+#closeButtonModal{
+  border: none;
+  background-color: #db8876;
 }
 #modal-name {
   font-size: 40px;

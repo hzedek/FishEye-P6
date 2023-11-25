@@ -14,7 +14,7 @@ function photographerTemplate(data) {
   function getUserCardDOM() {
     const article = document.createElement("article");
     //Boutton cliquable sur l'image du photographe envoyant à son profil
-    const img = document.createElement("img"); // Utiliser une balise <button> pour l'élément cliquable
+    const img = document.createElement("img");
     img.addEventListener("click", () => {
       location.href =
         "http://127.0.0.1:5501/Front-End-Fisheye/photographer.html?" + id;
