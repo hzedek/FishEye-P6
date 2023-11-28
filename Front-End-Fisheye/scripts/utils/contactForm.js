@@ -22,7 +22,7 @@ modalbtn.addEventListener("click", (event) => {
         const element = getValue[x];
         let values = element.value.trim();
         if (values.length <2) {
-            p.textContent += "veuillez remplir le champ "+element.name;
+            console.log("veuillez remplir le champ "+element.name);
         }
         else{
             console.log(element.value);
@@ -39,7 +39,7 @@ modalbtn.addEventListener("keydown", (event) => {
             if (element.tagName.toLowerCase() === 'input' || element.tagName.toLowerCase() === 'textarea') {
                 element.value = element.value.trim();
                 if (element.value.length < 2) {
-                    alert("Veuillez remplir le champ " + element.name);
+                    console.log("Veuillez remplir le champ " + element.name);
                     element.focus();
                     return;
                 }

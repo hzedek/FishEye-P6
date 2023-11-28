@@ -9,7 +9,7 @@ if (event.key === "Enter") {
 });
 
 function photographerTemplate(data) {
-  const { name, portrait, tagline, city, country, price, id } = data;
+  const { name, portrait, tagline, city, country, price, id, newMedia } = data;
   const picture = `assets/photographers/${portrait}`;
   function getUserCardDOM() {
     const article = document.createElement("article");
@@ -48,6 +48,72 @@ function photographerTemplate(data) {
 
     return article;
   }
+  //Factorisation
+  function createMediaElement(imageObject) {
+    const button = document.createElement("button");
+    button.tabIndex = 0;
+    button.className = "buttonImg";
+
+    const mediaElement = imageObject.image
+      ? createImageElement(imageObject)
+      : createVideoElement(imageObject);
+
+    button.appendChild(mediaElement);
+
+    const titleLikesContainer = document.createElement("div");
+    titleLikesContainer.className = "title-likes";
+
+    const titleElement = document.createElement("p");
+    titleElement.className = "smallFontSize redWineColor";
+    titleElement.textContent = imageObject.title;
+
+    const alignLikesContainer = document.createElement("div");
+    alignLikesContainer.className = "alignLikes";
+
+    const likesElement = document.createElement("p");
+    likesElement.className = "smallFontSize redWineColor likes";
+    likesElement.textContent = imageObject.likes;
+
+    const heartIcon = document.createElement("i");
+    heartIcon.role = "button";
+    heartIcon.tabIndex = 0;
+    heartIcon.style.color = "#901C1C";
+    heartIcon.className = "fa-regular fa-heart like";
+
+    alignLikesContainer.appendChild(likesElement);
+    alignLikesContainer.appendChild(heartIcon);
+
+    titleLikesContainer.appendChild(titleElement);
+    titleLikesContainer.appendChild(alignLikesContainer);
+
+    const imageCard = document.createElement("div");
+    imageCard.className = "imageCard";
+    imageCard.appendChild(button);
+    imageCard.appendChild(titleLikesContainer);
+
+    return imageCard;
+  }
+
+  function createImageElement(imageObject) {
+    const imgElement = document.createElement("img");
+    imgElement.className = "image";
+    imgElement.id = imageObject.id;
+    imgElement.title = imageObject.title;
+    imgElement.src = `assets/images/${imageObject.image}`;
+    imgElement.alt = imageObject.title;
+    return imgElement;
+  }
+
+  function createVideoElement(imageObject) {
+    const videoElement = document.createElement("video");
+    videoElement.className = "image";
+    videoElement.id = imageObject.id;
+    videoElement.title = imageObject.title;
+    videoElement.src = `assets/images/${imageObject.video}`;
+    videoElement.type = "video/mp4";
+    return videoElement;
+  }
+
 
   async function photographerPageDisplay() {
     const nameId = document.getElementById("name");
@@ -59,71 +125,10 @@ function photographerTemplate(data) {
     img.setAttribute("src", picture);
     const media = data.newMedia;
     let sumlikes = 0;
-    for (let i = 0; i < media.length; i++) {
-      const imageObject = media[i];
-      const article = document.getElementById("article");
-      if (imageObject.image) {
-        const imageRoute = `assets/images/${imageObject.image}`;
-        const imageDisplay = `<div class="imageCard">
-                <button tabindex="0" class="buttonImg">
-                <img class="image" id="${media[i].id}" title="${imageObject.title}" src="${imageRoute}" alt="${imageObject.title}">
-                </button>
-                <div class="title-likes">
-                <p class="smallFontSize redWineColor">${imageObject.title}</p>
-                <div class="alignLikes">
-                    <p class="smallFontSize redWineColor likes">${imageObject.likes}</p>
-                    <i role="button" tabindex="0" style="color:#901C1C" class="fa-regular fa-heart like"></i>
-                    </div>
-              </div>`;
-        article.innerHTML += imageDisplay;
-      }
-      if (imageObject.video) {
-        const imageRoute = `assets/images/${imageObject.video}`;
-        const imageDisplay = `<div class="imageCard">
-                <button  tabindex="0" class="buttonImg">
-                <video class="image" title="${imageObject.title}" id="${media[i].id}"  src="${imageRoute}" type="mp4"></video>
-                </button>
-                <div class="title-likes">
-                <p class="smallFontSize redWineColor">${imageObject.title}</p>
-                <div class="alignLikes">
-                    <p class="smallFontSize redWineColor likes">${imageObject.likes}</p>
-                    <i role="button" tabindex="0" style="color:#901C1C" class="fa-regular fa-heart like"></i>
-                    </div>
-              </div>`;
-        article.innerHTML += imageDisplay;
-      }
-      // lightbox
-      let imgBtns = document.querySelectorAll(".buttonImg");
-
-      imgBtns.forEach((imgBtn) => {
-        const imgTitle = imgBtn.title;
-        imgBtn.addEventListener("click", function lightbox() {
-          const clickButton = imgBtn.querySelector(".image");
-          let lightbox_BG = document.querySelector(".lightbox-Bg");
-          let lightbox = document.getElementById("lightbox");     
-          lightbox_BG.style.display = "block";
-          lightbox.style.display = "block";
-          let carousel = document.getElementById("carousel");
-          let imgCarousel;
-          if (clickButton.attributes.type) {
-            imgCarousel = document.createElement("video");
-            imgCarousel.setAttribute("controls", "controls"); // Ajouter des contrôles pour les vidéos
-            imgCarousel.setAttribute("tabIndex", "2");
-
-          } else {
-            imgCarousel = document.createElement("img");
-          }
-          imgCarousel.className = "lightboxImg";
-          imgCarousel.setAttribute("src", clickButton.attributes.src.value);
-          imgCarousel.setAttribute("id", clickButton.id);
-          carousel.appendChild(imgCarousel);
-          let imgTitleElement = document.createElement("p");
-          imgTitleElement.innerText = imgTitle;
-          imgTitleElement.className = "smallFontSize redWineColor imgTitle";
-          carousel.appendChild(imgTitleElement);
-          document.getElementById("left").focus()
-        });
-      })
+    for (let i = 0; i < newMedia.length; i++) {
+      const imageObject = newMedia[i];
+      const mediaElement = createMediaElement(imageObject);
+      article.appendChild(mediaElement);
 
       //Somme des Likes et affiches de celui-ci dans la bannière
       sumlikes += parseInt(media[i].likes);
@@ -137,6 +142,38 @@ function photographerTemplate(data) {
         </div>`;
       priceBanner.innerHTML += priceBannerDisplay;
     }
+    // LIGHTBOX
+    let imgBtns = document.querySelectorAll(".buttonImg");
+    imgBtns.forEach((imgBtn) => {
+      imgBtn.addEventListener("click", function lightbox() {
+        const clickButton = imgBtn.querySelector(".image");
+        const imgTitle = clickButton.title;
+        let lightbox_BG = document.querySelector(".lightbox-Bg");
+        let lightbox = document.getElementById("lightbox");     
+        lightbox_BG.style.display = "block";
+        lightbox.style.display = "block";
+        let carousel = document.getElementById("carousel");
+        let imgCarousel;
+        if (clickButton.type == "video/mp4") {
+          imgCarousel = document.createElement("video");
+          imgCarousel.setAttribute("controls", "controls"); // Ajouter des contrôles pour les vidéos
+          imgCarousel.setAttribute("tabIndex", "2");
+
+        } else {
+          imgCarousel = document.createElement("img");
+        }
+        imgCarousel.className = "lightboxImg";
+        imgCarousel.setAttribute("src", clickButton.attributes.src.value);
+        imgCarousel.setAttribute("id", clickButton.id);
+        carousel.appendChild(imgCarousel);
+        let imgTitleElement = document.createElement("p");
+        imgTitleElement.innerText = imgTitle;
+        imgTitleElement.className = "smallFontSize redWineColor imgTitle";
+        carousel.appendChild(imgTitleElement);
+        console.log();
+        document.getElementById("left").focus()
+      });
+    })
     //Implémentation du like et remplissage de l'icone
     const likeIcon = document.querySelectorAll(".fa-regular.fa-heart.like");
 
@@ -165,7 +202,7 @@ likeIcon.forEach((icon) => {
     }
   }
   icon.addEventListener("keydown",(e)=>{
-    if (e.key === "Enter" || e.key === " ") {
+    if (e.key === "Enter" || e.key === " ") {Il 
       e.preventDefault();
 
       const parentContainer = e.target.closest(".alignLikes");
